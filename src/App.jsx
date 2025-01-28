@@ -1,9 +1,13 @@
 import "./App.css";
 
+import AdminPage from "./components/AdminPage";
+
+
+
 function App() {
   return (
-    <div className="w-full h-screen">
-      <div className="w-[300px] h-full bg-green-200"></div>
+    <div>
+      <AdminPage />
     </div>
   );
 }
