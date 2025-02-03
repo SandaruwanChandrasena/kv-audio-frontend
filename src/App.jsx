@@ -1,14 +1,16 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
-
-import AdminPage from "./components/AdminPage";
-
-
+import AdminPage from "./pages/admin/AdminPage";
+import HomePage from "./pages/home/home";
 
 function App() {
   return (
-    <div>
-      <AdminPage />
-    </div>
+    <BrowserRouter>
+      <Routes path="/*">
+        <Route path="/admin/*" element={<AdminPage />} />
+        <Route path="/*" element={<HomePage/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
