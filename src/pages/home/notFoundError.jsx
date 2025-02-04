@@ -13,4 +13,3 @@ function NotFoundError() {
 }
 
 export default NotFoundError;
-d
