@@ -31,6 +31,8 @@ function LoginPage() {
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
+      
+
       // Redirect based on role
       user.role === "admin" ? navigate("/admin/") : navigate("/");
     } catch (err) {
