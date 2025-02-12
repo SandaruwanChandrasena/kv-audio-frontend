@@ -2,38 +2,39 @@ import { GoGraph } from "react-icons/go";
 import { FaRegBookmark, FaRegUser } from "react-icons/fa";
 import { MdOutlineSpeaker } from "react-icons/md";
 import { Link, Route, Routes } from "react-router-dom";
+import AdminItemsPage from "./AdminItemsPage";
 
 function AdminPage() {
     return (
         <div className="w-full h-screen flex">
               <div className="w-[250px] h-full bg-green-200">
         
-            <Link to="/admin/dashboad" className="w-full h-[40px] text-[25px] font-bold flex justify-start items-center relative pl-1">
+            <Link to="/admin/dashboad" className="w-full h-[40px] text-[25px] font-bold flex justify-center items-center relative ">
+              <GoGraph className="left-1 absolute"/>
               DashBoard
-              <GoGraph className="right-1 absolute"/>
             </Link>
 
-            <Link to="/admin/bookings" className="w-full h-[40px] text-[25px] font-bold flex justify-start items-center relative pl-1">
+            <Link to="/admin/bookings" className="w-full h-[40px] text-[25px] font-bold flex justify-center items-center relative ">
+              <FaRegBookmark className="left-1 absolute"/>
               Bookings
-              <FaRegBookmark className="right-1 absolute"/>
             </Link>
 
-            <Link to="/admin/items" className="w-full h-[40px] text-[25px] font-bold flex justify-start items-center relative pl-1">
+            <Link to="/admin/items" className="w-full h-[40px] text-[25px] font-bold flex justify-center items-center relative ">
+              <MdOutlineSpeaker className="left-1 absolute"/>
               Items
-              <MdOutlineSpeaker className="right-1 absolute"/>
             </Link>
-            <Link to="/admin/users" className="w-full h-[40px] text-[25px] font-bold flex justify-start items-center relative pl-1">
+            <Link to="/admin/users" className="w-full h-[40px] text-[25px] font-bold flex justify-center items-center relative ">
+              <FaRegUser className="left-1 absolute"/>
               Users
-              <FaRegUser className="right-1 absolute"/>
             </Link>
               </div>
 
-              <div className="w-[calc(100vw-250px)] bg-red-200">
+              <div className="w-[calc(100vw-250px)]">
 
                 <Routes path="/*">
                   <Route  path="/dashboad" element={<h1>Dashboard</h1>}/>
                   <Route  path="/bookings" element={<h1>Booking</h1>}/>
-                  <Route  path="/items" element={<h1>Items</h1>}/>
+                  <Route  path="/items" element={<AdminItemsPage />}/>
                   <Route  path="/users" element={<h1>Users</h1>}/>
                 </Routes>
 
