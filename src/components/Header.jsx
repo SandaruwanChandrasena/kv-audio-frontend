@@ -1,28 +1,30 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 function Header() {
-  return (
-    <header className="w-full h-[100px] shadow-xl flex justify-center items-center relative">
-      <img
-        src="assets/logo2.png"
-        alt=""
-        className="w-[100px] h-[100px] object-cover absolute left-[5px] "
-      />
-      <Link to="/" className="text-2xl  m-2">
-        Home
-      </Link>
-      <Link to="/contact" className="text-2xl m-2">
-        Contact
-      </Link>
-      <Link to="/gallery" className="text-2xl m-2">
-        Galery
-      </Link>
-      <Link to="/items" className="text-2xl m-2">
-        Items
-      </Link>
-    </header>
-  );
+
+    return (
+        <div className="w-full h-[100px] shadow-xl flex justify-center items-center cursor-pointer relative">
+
+            <img src="/logo.jpg" alt="logo" className="w-[80px] h-[80px] object-cover rounded-full absolute left-2 border-4 border-blue-800"/>
+
+            <Link to="/" className="text-[25px] font-bold m-3 ">
+            Home | 
+            </Link>
+
+            <Link to="/contact" className="text-[25px] font-bold m-3 ">
+            Contact |
+            </Link>
+
+            <Link to="/gallery" className="text-[25px] font-bold m-3 ">
+            Gallery |
+            </Link>
+
+            <Link to="/items" className="text-[25px] font-bold m-3 ">
+            Items |
+            </Link>
+
+        </div>
+    )
 }
 
 export default Header;

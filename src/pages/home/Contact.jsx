@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ContactScreen() {
+function Contact() {
   return (
     <div>ContactScreen</div>
   )
 }
 
-export default ContactScreen
+export default Contact;

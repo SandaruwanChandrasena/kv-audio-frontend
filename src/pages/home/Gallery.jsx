@@ -1,9 +1,9 @@
 import React from 'react'
 
-function GalleryScreen() {
+function Gallery() {
   return (
     <div>GalleryScreen</div>
   )
 }
 
-export default GalleryScreen
+export default Gallery;

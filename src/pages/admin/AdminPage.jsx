@@ -1,52 +1,45 @@
-import React from "react";
-import { BsGraphDown } from "react-icons/bs";
+import { GoGraph } from "react-icons/go";
 import { FaRegBookmark, FaRegUser } from "react-icons/fa";
-import { MdSpeaker } from "react-icons/md";
+import { MdOutlineSpeaker } from "react-icons/md";
 import { Link, Route, Routes } from "react-router-dom";
-import AdminItemsPage from "./AdminItemsPage";
 
 function AdminPage() {
-  return (
-    <div className="w-full h-screen flex">
-      <div className="w-[200px] h-full bg-green-200">
-        <Link
-          to="/admin/dashboard"
-          className="w-full h-[40px] text-2xl font-bold bg-red-400 flex justify-center items-center border-b-1"
-        >
-          <BsGraphDown />
-          Dashboard
-        </Link>
-        <Link
-          to="/admin/booking"
-          className="w-full h-[40px] text-2xl font-bold  bg-red-400 flex justify-center items-center border-b-1"
-        >
-          <FaRegBookmark />
-          Booking
-        </Link>
-        <Link
-          to="/admin/items"
-          className="w-full h-[40px] text-2xl font-bold  bg-red-400 flex justify-center items-center border-b-1"
-        >
-          <MdSpeaker />
-          Items
-        </Link>
-        <Link
-          to="/admin/user"
-          className="w-full h-[40px] text-2xl font-bold  bg-red-400 flex justify-center items-center border-b-1"
-        >
-          <FaRegUser />
-          Users
-        </Link>
-      </div>
+    return (
+        <div className="w-full h-screen flex">
+              <div className="w-[250px] h-full bg-green-200">
+        
+            <Link to="/admin/dashboad" className="w-full h-[40px] text-[25px] font-bold flex justify-start items-center relative pl-1">
+              DashBoard
+              <GoGraph className="right-1 absolute"/>
+            </Link>
 
-      <div className="w-[calc(100vw-200px)] bg-yellow-300">
-        <Routes path="/*">
-          <Route path="/booking" element={<h1>Booking</h1>} />
-          <Route path="/item" element={<AdminItemsPage />} />
-        </Routes>
-      </div>
-    </div>
-  );
+            <Link to="/admin/bookings" className="w-full h-[40px] text-[25px] font-bold flex justify-start items-center relative pl-1">
+              Bookings
+              <FaRegBookmark className="right-1 absolute"/>
+            </Link>
+
+            <Link to="/admin/items" className="w-full h-[40px] text-[25px] font-bold flex justify-start items-center relative pl-1">
+              Items
+              <MdOutlineSpeaker className="right-1 absolute"/>
+            </Link>
+            <Link to="/admin/users" className="w-full h-[40px] text-[25px] font-bold flex justify-start items-center relative pl-1">
+              Users
+              <FaRegUser className="right-1 absolute"/>
+            </Link>
+              </div>
+
+              <div className="w-[calc(100vw-250px)] bg-red-200">
+
+                <Routes path="/*">
+                  <Route  path="/dashboad" element={<h1>Dashboard</h1>}/>
+                  <Route  path="/bookings" element={<h1>Booking</h1>}/>
+                  <Route  path="/items" element={<h1>Items</h1>}/>
+                  <Route  path="/users" element={<h1>Users</h1>}/>
+                </Routes>
+
+              </div>
+            </div>
+    )    
 }
 
 export default AdminPage;

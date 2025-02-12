@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ItemScreen() {
+function Item() {
   return (
     <div>ItemScreen</div>
   )
 }
 
-export default ItemScreen
+export default Item;

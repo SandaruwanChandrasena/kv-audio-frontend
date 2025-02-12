@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function NotFoundError() {
+function ErrorNotFound() {
   return (
     <div>
       <h1>Page not found</h1>
@@ -12,4 +12,4 @@ function NotFoundError() {
   );
 }
 
-export default NotFoundError;
+export default ErrorNotFound;
