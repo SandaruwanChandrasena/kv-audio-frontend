@@ -1,5 +1,8 @@
 import { useState } from "react";
 import "./RegisterPage.css";
+import axios from "axios";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
   const [email, setEmail] = useState("");
@@ -8,10 +11,29 @@ function RegisterPage() {
   const [lastName, setLastName] = useState("");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
+  const navigate = useNavigate();
 
   function handleOnSubmit(e) {
     e.preventDefault();
     console.log({ email, password, firstName, lastName, address, phone });
+
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+
+    axios.post(`${backendUrl}/api/users/`,{
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        address: address,
+        phone: phone
+    }).then((res) => {
+        console.log(res);
+        navigate("/login")
+        toast.success("Register Success")
+    }).catch((err) => {
+        console.log(err);
+        toast.error(err?.response?.data?.error||"An error occured")
+    })
   }
 
   return (

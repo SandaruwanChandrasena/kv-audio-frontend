@@ -16,7 +16,7 @@ function LoginPage() {
     const backendUrl = import.meta.env.VITE_BACKEND_URL
 
     axios
-      .post(`${backendUrl}+/api/users/login`, {
+      .post(`${backendUrl}/api/users/login`, {
         email: email,
         password: password,
       })
