@@ -1,114 +1,121 @@
-const sampleArr = [
-  {
-    key: "P001",
-    name: "JBL Flip 6",
-    price: 19999,
-    category: "audio",
-    description:
-      "Portable Bluetooth speaker with deep bass and IP67 waterproof rating.",
-    dimentions: "18 x 7.4 x 6.8 cm",
-    availability: true,
-    productImage: ["https://images.jbl.com/FLIP6-.png"],
-  },
-  {
-    key: "P002",
-    name: "Sony WH-1000XM5",
-    price: 56999,
-    category: "audio",
-    description:
-      "Industry-leading noise-canceling wireless headphones with 30-hour battery life.",
-    dimentions: "20 x 25 x 5 cm",
-    availability: true,
-    productImage: [
-      "https://m.media-amazon.com/images/I/71zBUO-Oj7L._AC_SX425_.jpg",
-    ],
-  },
-  {
-    key: "P003",
-    name: "Philips Hue Smart LED",
-    price: 8999,
-    category: "lights",
-    description:
-      "Smart LED bulb with adjustable colors and voice control compatibility.",
-    dimentions: "6 x 6 x 11 cm",
-    availability: true,
-    productImage: [
-      "https://m.media-amazon.com/images/I/51jTZkgcuQL._AC_SX679_.jpg",
-    ],
-  },
-  {
-    key: "P004",
-    name: "Bose SoundLink Mini II",
-    price: 34999,
-    category: "audio",
-    description:
-      "Compact wireless speaker with rich sound and up to 12 hours of battery life.",
-    dimentions: "18 x 5 x 6 cm",
-    availability: false,
-    productImage: [
-      "https://m.media-amazon.com/images/I/81Wx7hwAwiL._AC_SX425_.jpg",
-    ],
-  },
-  {
-    key: "P005",
-    name: "Nanoleaf Shapes Hexagons",
-    price: 42999,
-    category: "lights",
-    description: "Customizable modular LED panels with smart home integration.",
-    dimentions: "20 x 23 x 1 cm",
-    availability: true,
-    productImage: [
-      "https://m.media-amazon.com/images/I/81+uDTj2AhL._AC_SX679_.jpg",
-    ],
-  },
-];
-
-import React, { useState } from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function AdminItems() {
-  const [items, setItems] = useState(sampleArr);
+
+  const [items, setItems] = useState([]);
+  const [itemLoaded, setItemLoaded] = useState(false);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!itemLoaded) {
+      const token = localStorage.getItem("token");
+
+      axios
+        .get("http://localhost:3000/api/products", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setItems(res.data);
+          setItemLoaded(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [itemLoaded]);
+
+
+  const handleDelete = (key) => {
+    if (window.confirm("Are you sure you want to delete this item?")) {
+
+      //setItems((prevItems) => prevItems.filter((item) => item.key !== key));
+      setItems(items.filter((item) => item.key !== key))
+
+      const token = localStorage.getItem("token");
+
+      axios
+        .delete(`http://localhost:3000/api/products/${key}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          console.log(res.data);
+          setItemLoaded(false)
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  };
 
   return (
-    <div className="w-full h-full flex flex-col relative">
-      <table>
-        <thead>
-          <tr>
-            <th>Key</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Category</th>
-            <th>Dimensions</th>
-            <th>Availability</th>
-          </tr>
-        </thead>
-          {
-            items.map((product) => {
-
-              console.log(product);
-
-              return (
-                <tr key={product.key}>
-                  <td>{product.key}</td>
-                  <td>{product.name}</td>
-                  <td>{product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.dimentions}</td>
-                  <td>{product.availability ? "Available" : "Not Available"}</td>
+    <div className="w-full h-full flex flex-col relative p-6 bg-gray-50">
+      {!itemLoaded && (
+        <div className="absolute top-10 left-1/2 transform -translate-x-1/2">
+          <div className="border-4 border-b-green-500 rounded-full w-[100px] h-[100px] animate-spin"></div>
+        </div>
+      )}
+      <h1 className="text-3xl font-bold mb-6">Admin Items</h1>
+      {itemLoaded && (
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-sm ">
+            <thead className="bg-gray-200">
+              <tr>
+                <th className="py-3 px-3 border">Key</th>
+                <th className="py-3 px-3 border">Name</th>
+                <th className="py-3 px-3 border">Price</th>
+                <th className="py-3 px-3 border">Category</th>
+                <th className="py-3 px-3 border">Dimensions</th>
+                <th className="py-3 px-3 border">Availability</th>
+                <th className="py-3 px-3 border">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((product) => (
+                <tr key={product.key} className="hover:bg-gray-100">
+                  <td className="py-3 px-3 border">{product.key}</td>
+                  <td className="py-3 px-3 border">{product.name}</td>
+                  <td className="py-3 px-3 border">{product.price}</td>
+                  <td className="py-3 px-3 border">{product.category}</td>
+                  <td className="py-3 px-3 border">{product.dimentions}</td>
+                  <td className="py-3 px-3 border">
+                    {product.availability ? "Available" : "Not Available"}
+                  </td>
+                  <td className="py-3 px-3 border">
+                    <div className="flex justify-evenly">
+                      <button
+                        onClick={() => {
+                          navigate(`/admin/items/update`, {
+                            state: product
+                          })
+                        }}
+                        className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(product.key)}
+                        className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
                 </tr>
-              )
-              
-            })
-          }
-        <tbody>
-          
-        </tbody>
-      </table>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-      <Link to="/admin/items/add">
-        <IoIosAddCircleOutline className="text-[50px] absolute right-10 bottom-10 hover:text-red-500 hover:text-[60px] " />
-      </Link>
+      <div className="mt-15 flex justify-center">
+        <Link to="/admin/items/add">
+          <IoIosAddCircleOutline className="text-[60px] hover:text-red-500 hover:text-[62px]" />
+        </Link>
+      </div>
     </div>
   );
 }

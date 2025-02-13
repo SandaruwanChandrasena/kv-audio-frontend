@@ -4,6 +4,7 @@ import { MdOutlineSpeaker } from "react-icons/md";
 import { Link, Route, Routes } from "react-router-dom";
 import AdminItems from "./AdminItems";
 import AdminAddItem from "./AdminAddItem";
+import AdminUpdateItem from "./AdminUpdateItem";
 
 function AdminPage() {
     return (
@@ -33,11 +34,14 @@ function AdminPage() {
               <div className="w-[calc(100vw-250px)]">
 
                 <Routes path="/*">
-                  <Route  path="/dashboad" element={<h1>Dashboard</h1>}/>
-                  <Route  path="/bookings" element={<h1>Booking</h1>}/>
-                  <Route  path="/items" element={<AdminItems />}/>
 
+                  <Route  path="/dashboad" element={<h1>Dashboard</h1>}/>
+
+                  <Route  path="/bookings" element={<h1>Booking</h1>}/>
+
+                  <Route  path="/items" element={<AdminItems />}/>
                   <Route path="/items/add" element={<AdminAddItem />}/>
+                  <Route path="/items/update" element={<AdminUpdateItem />}/>
 
                   <Route  path="/users" element={<h1>Users</h1>}/>
                 </Routes>

@@ -1,18 +1,23 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function AdminAddItem() {
-  const [productKey, setProductKey] = useState("");
-  const [productName, setProductName] = useState("");
-  const [productPrice, setProductPrice] = useState(0);
-  const [productCategory, setProductCategory] = useState("audio");
-  const [productDimention, setProductDimention] = useState("");
-  const [productDescription, setProductDescription] = useState("");
+function AdminUpdateItem() {
+    const location = useLocation()
+  
+    console.log(location);
+
+
+  const [productKey, setProductKey] = useState(location.state.key);
+  const [productName, setProductName] = useState(location.state.name);
+  const [productPrice, setProductPrice] = useState(location.state.price);
+  const [productCategory, setProductCategory] = useState(location.state.category);
+  const [productDimention, setProductDimention] = useState(location.state.dimentions);
+  const [productDescription, setProductDescription] = useState(location.state.description);
   const navigate = useNavigate()
 
-  async function handelAddItem() {
+  async function handelUpdateItem() {
     try {
       const token = localStorage.getItem("token");
   
@@ -21,10 +26,9 @@ function AdminAddItem() {
         return;
       }
   
-      const result = await axios.post(
-        "http://localhost:3000/api/products",
+      const result = await axios.put(
+        "http://localhost:3000/api/products/"+productKey,
         {
-          key: productKey,
           name: productName,
           price: productPrice,
           category: productCategory,
@@ -39,22 +43,23 @@ function AdminAddItem() {
       );
   
       console.log(result);
-      toast.success("Item added successfully!");
+      toast.success("Item Updated successfully!");
       navigate("/admin/items")
 
     } catch (error) {
-      console.error("Error adding item:", error.message);
-      toast.error("Failed to add item. Please try again.");
+      console.error("Error Updating item:", error.message);
+      toast.error("Failed to Updating item. Please try again.");
     }
   }
   
 
   return (
     <div className="w-full h-full bg-purple-200 flex flex-col items-center p-4">
-      <h1 className="text-xl font-bold mb-4">Add Product Page</h1>
+      <h1 className="text-xl font-bold mb-4">Update Item</h1>
 
       <div className="w-[400px] border p-4 flex flex-col gap-3 bg-white shadow-md rounded-lg">
         <input
+        disabled
           onChange={(e) => setProductKey(e.target.value)}
           value={productKey}
           type="text"
@@ -104,10 +109,10 @@ function AdminAddItem() {
         />
 
         <button
-          onClick={handelAddItem}
+          onClick={handelUpdateItem}
           className="p-2 bg-blue-500 text-white rounded-md hover:bg-blue-700 transition"
         >
-          Add
+          Update Item
         </button>
         <button onClick={() => {
             navigate("/admin/items")
@@ -119,4 +124,4 @@ function AdminAddItem() {
   );
 }
 
-export default AdminAddItem;
+export default AdminUpdateItem;
