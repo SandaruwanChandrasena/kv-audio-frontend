@@ -13,6 +13,9 @@ function AdminAddItem() {
   const navigate = useNavigate()
 
   async function handelAddItem() {
+
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+
     try {
       const token = localStorage.getItem("token");
   
@@ -22,7 +25,7 @@ function AdminAddItem() {
       }
   
       const result = await axios.post(
-        "http://localhost:3000/api/products",
+        `${backendUrl}/api/products`,
         {
           key: productKey,
           name: productName,

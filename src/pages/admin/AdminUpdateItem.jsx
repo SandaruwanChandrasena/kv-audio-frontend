@@ -18,6 +18,9 @@ function AdminUpdateItem() {
   const navigate = useNavigate()
 
   async function handelUpdateItem() {
+
+    const backendUrl = import.meta.env.VITE_BACKEND_URL
+
     try {
       const token = localStorage.getItem("token");
   
@@ -27,7 +30,7 @@ function AdminUpdateItem() {
       }
   
       const result = await axios.put(
-        "http://localhost:3000/api/products/"+productKey,
+        `${backendUrl}/api/products/${productKey}`,
         {
           name: productName,
           price: productPrice,
