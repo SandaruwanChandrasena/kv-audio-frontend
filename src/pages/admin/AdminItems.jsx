@@ -9,8 +9,7 @@ function AdminItems() {
   const [itemLoaded, setItemLoaded] = useState(false);
   const navigate = useNavigate();
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL
-
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     if (!itemLoaded) {
@@ -21,8 +20,8 @@ function AdminItems() {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {
-          console.log(res.data);
-          setItems(res.data);
+          console.log(res.data.products);
+          setItems(res.data.products);
           setItemLoaded(true);
         })
         .catch((err) => {
@@ -64,28 +63,59 @@ function AdminItems() {
           <table className="min-w-full bg-white border border-gray-200 rounded-lg shadow-lg">
             <thead className="bg-gradient-to-r from-gray-200 to-gray-300">
               <tr>
-                <th className="py-3 px-3 border text-left text-gray-700">Key</th>
-                <th className="py-3 px-3 border text-left text-gray-700">Name</th>
-                <th className="py-3 px-3 border text-left text-gray-700">Price</th>
-                <th className="py-3 px-3 border text-left text-gray-700">Category</th>
-                <th className="py-3 px-3 border text-left text-gray-700">Dimensions</th>
-                <th className="py-3 px-3 border text-left text-gray-700">Availability</th>
-                <th className="py-3 px-3 border text-left text-gray-700">Actions</th>
+                <th className="py-3 px-3 border text-left text-gray-700">
+                  Key
+                </th>
+                <th className="py-3 px-3 border text-left text-gray-700">
+                  Name
+                </th>
+                <th className="py-3 px-3 border text-left text-gray-700">
+                  Price
+                </th>
+                <th className="py-3 px-3 border text-left text-gray-700">
+                  Category
+                </th>
+                <th className="py-3 px-3 border text-left text-gray-700">
+                  Dimensions
+                </th>
+                <th className="py-3 px-3 border text-left text-gray-700">
+                  Availability
+                </th>
+                <th className="py-3 px-3 border text-left text-gray-700">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
               {items.map((product) => (
-                <tr key={product.key} className="hover:bg-gray-50 transition duration-150">
-                  <td className="py-3 px-3 border text-gray-600">{product.key}</td>
-                  <td className="py-3 px-3 border text-gray-600">{product.name}</td>
-                  <td className="py-3 px-3 border text-gray-600">Rs.{product.price}</td>
-                  <td className="py-3 px-3 border text-gray-600">{product.category}</td>
-                  <td className="py-3 px-3 border text-gray-600">{product.dimentions}</td>
+                <tr
+                  key={product.key}
+                  className="hover:bg-gray-50 transition duration-150"
+                >
+                  <td className="py-3 px-3 border text-gray-600">
+                    {product.key}
+                  </td>
+                  <td className="py-3 px-3 border text-gray-600">
+                    {product.name}
+                  </td>
+                  <td className="py-3 px-3 border text-gray-600">
+                    Rs.{product.price}
+                  </td>
+                  <td className="py-3 px-3 border text-gray-600">
+                    {product.category}
+                  </td>
+                  <td className="py-3 px-3 border text-gray-600">
+                    {product.dimentions}
+                  </td>
                   <td className="py-3 px-3 border text-gray-600">
                     {product.availability ? (
-                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm">Available</span>
+                      <span className="bg-green-100 text-green-700 px-2 py-1 rounded-full text-sm">
+                        Available
+                      </span>
                     ) : (
-                      <span className="bg-red-100 text-red-700 px-2 py-1 rounded-full text-sm">Not Available</span>
+                      <span className="bg-red-100 text-red-700 px-2 py-1 rounded-full text-sm">
+                        Not Available
+                      </span>
                     )}
                   </td>
                   <td className="py-3 px-3 border">
@@ -98,14 +128,12 @@ function AdminItems() {
                         }}
                         className="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 transition duration-200 flex items-center gap-2"
                       >
-                  
                         <FaEdit className="text-lg" /> {/* Edit Icon */}
                       </button>
                       <button
                         onClick={() => handleDelete(product.key)}
                         className="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600 transition duration-200 flex items-center gap-2"
                       >
-                       
                         <FaTrash className="text-lg" /> {/* Delete Icon */}
                       </button>
                     </div>
