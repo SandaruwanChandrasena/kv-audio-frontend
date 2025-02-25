@@ -1,62 +1,25 @@
 import { useState } from "react";
+import MediaUpload from "../utils/MedialUpload";
 
 function Testing() {
-  const [count, setCount] = useState(0);
-  const [itemName, setItemName] = useState("cocunot");
+  
+const [file, setFile] = useState(null)
 
-  // const itemName = "coconut"
-
+function uploadFile() {
+  console.log(file);
+  MediaUpload(file).then((url) => {
+    console.log(url);
+  })
+}
+  
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
-      <h1 className="text-9xl font-bold pb-5 ">
-        {count} + {itemName}s
-      </h1>
-
-      <button
-        className="text-2xl w-[100px] h-[40px] bg-black text-white rounded-lg"
-        onClick={() => {
-          const newCount = count + 1;
-          setCount(newCount);
-        }}
-      >
-        count
+      <input type="file" onChange={(e) => {
+        setFile(e.target.files[0]);
+      }} className="border"/>
+      <button onClick={uploadFile} className="w-[200px] h-[50px] bg-blue-500 text-white py-2 hover:bg-blue-600 transition decoration-5">
+        Upload
       </button>
-
-      <div className="w-full p-4 flex items-center justify-evenly">
-        <button
-          className="text-2xl w-[100px] h-[40px] bg-blue-500 text-white rounded-lg "
-          onClick={() => {
-            setItemName("Coconut");
-          }}
-        >
-          Coconut
-        </button>
-        <button
-          className="text-2xl w-[100px] h-[40px] bg-blue-500 text-white rounded-lg
-        "
-          onClick={() => {
-            setItemName("Banana");
-          }}
-        >
-          Banana
-        </button>
-        <button
-          className="text-2xl w-[100px] h-[40px] bg-blue-500 text-white rounded-lg "
-          onClick={() => {
-            setItemName("Apple");
-          }}
-        >
-          Apple
-        </button>
-        <button
-          className="text-2xl w-[100px] h-[40px] bg-blue-500 text-white rounded-lg "
-          onClick={() => {
-            setItemName("Other");
-          }}
-        >
-          Other
-        </button>
-      </div>
     </div>
   );
 }
